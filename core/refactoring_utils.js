@@ -231,6 +231,83 @@ Blockly.RefactoringUtils.createTestProgramForExtractVar = function(workspace) {
 	Blockly.Xml.domToWorkspace(xml, workspace);
 };
 
+Blockly.RefactoringUtils.createTestProgramForInlineVar = function(workspace) {
+		var text = `<xml xmlns="http://www.w3.org/1999/xhtml">
+  <variables>
+    <variable type="" id="3afbf0f7-2528-428c-9c94-c7e540695b5c">tempVar1</variable>
+  </variables>
+  <block type="motion_turnright" id="~V]FsjlpC7!A!?WsB57J" x="143" y="179">
+    <value name="DEGREES">
+      <shadow type="math_number" id="mXcd/zgNRLjoTh_[jF/">
+        <field name="NUM">15.0</field>
+      </shadow>
+    </value>
+    <next>
+      <block type="data_setvariableto" id="F7n0_vmky~kYaI7gm0{g">
+        <field name="VARIABLE" id="3afbf0f7-2528-428c-9c94-c7e540695b5c" variabletype="">tempVar1</field>
+        <value name="VALUE">
+          <shadow type="text" id="MJxCj{L+%HI@7*pCLwD^">
+            <field name="TEXT">0</field>
+          </shadow>
+          <block type="operator_add" id="target_invocation">
+            <value name="NUM1">
+              <shadow type="math_number" id="Otwtlxu[xSEQ0$9nb1]$">
+                <field name="NUM">3.0</field>
+              </shadow>
+            </value>
+            <value name="NUM2">
+              <shadow type="math_number" id="[RF7j3?D}rTLMo#yFc6">
+                <field name="NUM">4.0</field>
+              </shadow>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="motion_movesteps" id="Eay4[_%M]k,/bw83#Pg%">
+            <value name="STEPS">
+              <shadow type="math_number" id="num_shadow1">
+                <field name="NUM">10.0</field>
+              </shadow>
+              <block type="data_variable" id="650812e2-f9c3-4534-b2ab-1e74cf1cc06d">
+                <field name="VARIABLE" id="3afbf0f7-2528-428c-9c94-c7e540695b5c" variabletype="">tempVar1</field>
+              </block>
+            </value>
+            <next>
+              <block type="motion_movesteps" id="lK}%w!0_Wq/:t~Achxc1">
+                <value name="STEPS">
+                  <shadow type="math_number" id="7P#{O$YV9!;IrI**CgT+">
+                    <field name="NUM">10.0</field>
+                  </shadow>
+                  <block type="operator_add" id="uWxY$=+2xNE;O?JY*Gs4">
+                    <value name="NUM1">
+                      <shadow type="math_number" id="r[37xv00*}6!.olT~^vf">
+                        <field name="NUM">3.0</field>
+                      </shadow>
+                    </value>
+                    <value name="NUM2">
+                      <shadow type="math_number" id="N^o?l!|EpIoTkI5|#JyG">
+                        <field name="NUM">4.0</field>
+                      </shadow>
+                      <block type="data_variable" id="20f7783b-1e12-4697-97f8-11ecd537dca7">
+                        <field name="VARIABLE" id="3afbf0f7-2528-428c-9c94-c7e540695b5c" variabletype="">tempVar1</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+</xml>`;
+
+	var xml = Blockly.Xml.textToDom(text);
+	Blockly.Xml.domToWorkspace(xml, workspace);
+};
+
+
 Blockly.RefactoringUtils.createExtractCustomBlockTestProgram = function(workspace) {
 		var text = `<xml xmlns="http://www.w3.org/1999/xhtml"><variables><variable type="" id="K~LCa}G%F.MR*BM77j?s-my variable">my variable</variable></variables><block type="motion_movesteps" id="!H+z6Z7cJa[uFGSbrO%#" x="269" y="129"><value name="STEPS"><shadow type="math_number" id="^CSpm#-v^3)M/L|PWK,f"><field name="NUM">10</field></shadow><block type="operator_add" id="B=3pl*d@H~)g{%JJ^V!"><value name="NUM1"><shadow type="math_number" id="b0002"><field name="NUM">1</field></shadow></value><value name="NUM2"><shadow type="math_number" id="tH/lwmVS{_8@(LeyEeG8"><field name="NUM">2</field></shadow></value></block></value><next><block type="motion_turnright" id="p:TW!_71}Xmz3a/n_QcQ"><value name="DEGREES"><shadow type="math_number" id="mU]f2CyOUJZ*=c6mK2$V"><field name="NUM">-15</field></shadow></value><next><block type="motion_movesteps" id="wcq8c7K==a(u~P-RY^X"><value name="STEPS"><shadow type="math_number" id="O_C!LNBM,Ul9q5a?lhU"><field name="NUM">10</field></shadow></value><next><block type="motion_turnright" id="$[b6FB?17hAPhdsR%s["><value name="DEGREES"><shadow type="math_number" id="GEQD=kSVMbHF}J-CIU6W"><field name="NUM">20</field></shadow></value><next><block type="motion_pointindirection" id="uOz.25fL5PTs|+iL;Rx/"><value name="DIRECTION"><shadow type="math_angle" id="]p@TO^pkIP5bvHu]MY)3"><field name="NUM">90</field></shadow></value></block></next></block></next></block></next></block></next></block><block type="control_repeat" id="gmv]ISX{J_XQF@7+f-h" x="567" y="176"><value name="TIMES"><shadow type="math_whole_number" id="I,}aH[Mzm1-HNt]1eA^v"><field name="NUM">10</field></shadow></value><statement name="SUBSTACK"><block type="motion_movesteps" id="h7Om}E$?nj:JCN-Fz#:,"><value name="STEPS"><shadow type="math_number" id="+)]e=ap)t@-KBa|?R+wQ"><field name="NUM">10</field></shadow></value><next><block type="motion_turnright" id="(X28fQD.]qnmS}/UOhuV"><value name="DEGREES"><shadow type="math_number" id="%)M_xYA[/)eG#TXZW#["><field name="NUM">15</field></shadow></value></block></next></block></statement></block></xml>`;
 

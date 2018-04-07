@@ -68,7 +68,6 @@ Blockly.BlockTransformer.prototype.BlockCreateAction = function(action){
 
 
 Blockly.BlockTransformer.prototype.InsertBlockAction = function(action){
-  console.log("insert");
 	let targetBlock = this.workspace.getBlockById(action.targetBlock);
   let insertedBlock = this.workspace.getBlockById(action.insertedBlock);
   
@@ -145,5 +144,35 @@ Blockly.BlockTransformer.prototype.ReplaceAction = function(action){
     }
 
   }
+
+};
+
+Blockly.BlockTransformer.prototype.DeleteAction = function(action){
+  let targetBlock = this.workspace.getBlockById(action.targetBlock);
+  if(!targetBlock){
+    console.error("target block to delete not found");
+    return; //targetBlock to delete not found; 
+  }
+  let previousBlock = null;
+  let nextBlock = null;
+
+  if(targetBlock.previousConnection){
+    previousBlock = targetBlock.previousConnection.targetBlock();
+  }
+  if(targetBlock.nextConnection){
+    nextBlock = targetBlock.nextConnection.targetBlock();
+  }
+
+  if(previousBlock&&nextBlock){
+    previousBlock.nextConnection.connect(nextBlock.previousConnection);
+  }else if(previousBlock&&!nextBlock){
+    targetBlock.unplug(true,true);
+  }else if(!previousBlock&&nextBlock){
+    targetBlock.unplug(true,true);
+  }else{ //just a block target
+    //no connection adjustment required
+  }
+
+  targetBlock.dispose();
 
 };
