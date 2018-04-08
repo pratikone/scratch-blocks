@@ -915,6 +915,36 @@ Blockly.WorkspaceSvg.prototype.glowStack = function(id, isGlowingStack) {
   block.setGlowStack(isGlowingStack);
 };
 
+
+
+
+/**
+ * Glow/unglow a refactored block in the workspace.
+ * @param {array} ids IDs of block to find.
+ * @param {boolean} isGlowingBlock Whether to glow the block.
+ */
+Blockly.WorkspaceSvg.prototype.glowRefactorBlock = function(ids, isRefactorGlowingBlock) {
+
+  for ( var i=0; i< ids.length; i++ ) {
+    var id = ids[i];
+    var block = null;
+    if (id) {
+      block = this.getBlockById(id);
+      if (!block) {
+        throw 'Tried to glow block that does not exist.';
+      }
+    }
+    block.setGlowBlock(isRefactorGlowingBlock, true);
+  }
+};
+
+
+
+
+
+
+
+
 /**
  * Visually report a value associated with a block.
  * In Scratch, appears as a pop-up next to the block when a reporter block is clicked.

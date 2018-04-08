@@ -98,6 +98,7 @@ Blockly.Colours = {
   "stackGlow": "#FFF200",
   "stackGlowSize": 4,
   "stackGlowOpacity": 1,
+  "refactorGlow": "#4acb3f",
   "replacementGlow": "#FFFFFF",
   "replacementGlowSize": 2,
   "replacementGlowOpacity": 1,

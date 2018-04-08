@@ -211,9 +211,20 @@ Blockly.BlockSvg.prototype.unselect = function() {
  * Glow only this particular block, to highlight it visually as if it's running.
  * @param {boolean} isGlowingBlock Whether the block should glow.
  */
-Blockly.BlockSvg.prototype.setGlowBlock = function(isGlowingBlock) {
+Blockly.BlockSvg.prototype.setGlowBlock = function(isGlowingBlock, refactor = false) {
   this.isGlowingBlock_ = isGlowingBlock;
-  this.updateColour();
+  if( refactor === false ){
+    this.updateColour();
+  }
+  else{
+    // Update the applied SVG filter if the property has changed
+    var svg = this.getSvgRoot();
+    if (this.isGlowingBlock_ && !svg.hasAttribute('filter')) {
+      svg.setAttribute('filter', 'url(#blocklyRefactorGlowFilter)');
+    } else if (!this.isGlowingBlock_ && svg.hasAttribute('filter')) {
+      svg.removeAttribute('filter');
+    }
+  }
 };
 
 /**
